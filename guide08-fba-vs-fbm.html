@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FBA vs FBM — 뭐가 유리한가 | 마진랩</title>
+<meta name="description" content="FBA 수수료와 FBM 직접 배송비의 손익 비교, 상품 유형별 풀필먼트 선택 기준을 정리합니다.">
+<style>
+  :root { --ink: #111111; --paper: #ffffff; --accent: #ff4d00; --gray: #f4f4f4; --mid: #757575; --line: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.75; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; margin-left: 20px; }
+  .label { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; padding: 6px 12px; margin: 48px 0 20px; }
+  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 40px; }
+  article h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin: 40px 0 14px; padding-top: 8px; border-top: 2px solid var(--ink); }
+  article p { margin-bottom: 16px; font-size: 16px; }
+  article ul { margin: 0 0 16px 22px; }
+  article li { margin-bottom: 8px; font-size: 16px; }
+  article strong { font-weight: 800; }
+  article a { color: var(--accent); font-weight: 700; }
+  article table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14px; }
+  article th, article td { border: 2px solid var(--ink); padding: 10px 12px; text-align: left; }
+  article th { background: var(--ink); color: #fff; font-weight: 800; }
+  .formula { background: var(--gray); border-left: 4px solid var(--accent); padding: 14px 16px; font-weight: 800; font-size: 15px; }
+  .cta { margin: 48px 0; background: var(--ink); color: #fff; padding: 28px 24px; }
+  .cta h3 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .cta p { font-size: 14px; opacity: .8; margin-bottom: 16px; }
+  .cta a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 900; padding: 12px 28px; font-size: 15px; }
+  .other { margin: 48px 0; }
+  .other h3 { font-size: 16px; font-weight: 900; margin-bottom: 12px; }
+  .other a { display: block; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .other a:hover { color: var(--accent); }
+  .disclaimer { margin: 32px 0; padding: 16px; background: var(--gray); font-size: 12px; color: var(--mid); border-left: 4px solid var(--accent); }
+  footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">마진<span>랩</span></a>
+    <nav>
+      <a href="index.html#calc">계산기</a>
+      <a href="index.html#guide">마진 가이드</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <span class="label">GUIDE 08</span>
+  <h1>FBA vs FBM — 뭐가 유리한가</h1>
+  <article>
+<p>아마존 판매의 풀필먼트는 두 가지입니다. 아마존 창고에 맡기는 <strong>FBA</strong>(Fulfillment by Amazon), 셀러가 직접 보내는 <strong>FBM</strong>(Fulfillment by Merchant). 수수료 표만 보고 고르면 틀립니다. 상품 특성과 판매 구조까지 넣고 비교해야 합니다.</p>
+
+<h2>FBA가 가져가는 것과 주는 것</h2>
+<ul>
+<li><strong>비용</strong> — 풀필먼트 수수료 + 보관료 + 입고 운송비</li>
+<li><strong>혜택</strong> — 프라임 배지(전환율 상승), 바이박스 경쟁력, 배송·CS·반품을 아마존이 처리</li>
+</ul>
+<p>프라임 배지의 전환율 효과가 커서, <strong>표준 사이즈의 중저가 상품은 대부분 FBA가 유리</strong>합니다. 한국에서 개별 주문을 미국으로 직접 보내는 것은 배송비·속도 모두 경쟁이 되지 않습니다.</p>
+
+<h2>FBM이 유리해지는 경우</h2>
+<ul>
+<li><strong>크고 무거운 상품</strong> — FBA 특대(Oversize) 수수료와 보관료가 급증하는 구간. 미국 내 3PL 창고에서 직접 발송하는 게 쌀 수 있음</li>
+<li><strong>회전이 느린 상품</strong> — 장기보관 수수료가 쌓이는 저회전 재고</li>
+<li><strong>고가·저빈도 상품</strong> — 판매 건수가 적어 재고를 깔아두는 리스크가 큰 경우</li>
+<li><strong>FBA 입고 제한·성수기 물량 초과</strong> — FBA 재고가 끊겼을 때의 백업 채널</li>
+</ul>
+<p class="formula">비교 공식: FBA 수수료+보관료 vs 3PL 보관+피킹+미국 내 배송비 — 여기에 프라임 전환율 효과(+15~25% 가정)를 FBA 쪽에 얹어서 판단</p>
+
+<h2>실무에서는 병행이 답인 경우가 많다</h2>
+<p>같은 리스팅에 FBA와 FBM 오퍼를 함께 걸어두면, FBA 재고 소진 시 FBM이 판매를 이어받아 랭킹 하락을 막을 수 있습니다. 또 신상품 테스트는 소량 FBA로 시작하고, 검증된 뒤 물량을 키우는 것이 재고 리스크를 줄입니다.</p>
+<p>두 방식의 개당 손익 차이는 <a href="index.html#calc">마진 계산기</a>에서 FBA 수수료 자리에 FBM의 개당 물류비(3PL+배송)를 넣어 비교하면 됩니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. FBM도 프라임 배지를 달 수 있나요?</strong><br>Seller Fulfilled Prime이라는 프로그램이 있지만 배송 성과 요건이 매우 까다로워, 미국 내 물류 기반이 없는 한국 셀러에게는 현실적으로 어렵습니다.</p>
+<p><strong>Q. 반품 처리는 어떻게 다른가요?</strong><br>FBA는 아마존이 자동 처리하고, FBM은 셀러가 미국 내 반품 주소를 제공해야 합니다. 3PL 없이 FBM 반품을 받는 것은 사실상 불가능하니 미리 준비해야 합니다.</p>
+  </article>
+  <div class="cta">
+    <h3>내 상품 마진은 얼마일까?</h3>
+    <p>수수료·광고·반품까지 반영한 개당 순이익을 30초 만에 계산해 보세요.</p>
+    <a href="index.html#calc">마진 계산기 열기 →</a>
+  </div>
+  <div class="other">
+    <h3>다른 가이드</h3>
+    <a href="guide01-fees-structure.html">GUIDE 01 — 아마존 수수료 구조 한눈에 보기</a>
+    <a href="guide02-fba-fee-tiers.html">GUIDE 02 — FBA 수수료, 사이즈 티어가 마진을 결정한다</a>
+    <a href="guide03-acos-tacos.html">GUIDE 03 — ACoS vs TACoS — 광고 지표 제대로 읽기</a>
+    <a href="guide04-breakeven-acos.html">GUIDE 04 — 손익분기 ACoS — 광고비 한도 정하는 법</a>
+    <a href="guide05-returns-cost.html">GUIDE 05 — 반품이 마진을 갉아먹는 구조</a>
+    <a href="guide06-exchange-rate.html">GUIDE 06 — 환율과 정산 — 달러 매출을 원화로 지키기</a>
+    <a href="guide07-customs-import.html">GUIDE 07 — 상륙원가(Landed Cost) 계산하기</a>
+    <a href="guide09-storage-fees.html">GUIDE 09 — 보관료와 장기보관 수수료 — 재고 회전율</a>
+    <a href="guide10-margin-improve.html">GUIDE 10 — 가격 인상 vs 원가 절감 — 마진 개선 우선순위</a>
+  </div>
+  <div class="disclaimer">⚠️ 본 글은 일반적인 정보를 다루며, 아마존 수수료율과 정책은 카테고리·시기에 따라 달라질 수 있습니다. 실제 의사결정 전에는 셀러센트럴의 최신 요율표와 정책을 반드시 확인하세요.</div>
+</div>
+<footer><div class="wrap">마진랩 © 2026 · 본 사이트의 모든 내용은 참고용이며 법적 효력이 없습니다</div></footer>
+</body>
+</html>

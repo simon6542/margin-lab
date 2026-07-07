@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FBA 수수료, 사이즈 티어가 마진을 결정한다 | 마진랩</title>
+<meta name="description" content="FBA 풀필먼트 수수료의 사이즈·무게 티어 구조와 패키징 몇 mm 차이로 개당 수수료가 갈리는 이유를 설명합니다.">
+<style>
+  :root { --ink: #111111; --paper: #ffffff; --accent: #ff4d00; --gray: #f4f4f4; --mid: #757575; --line: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.75; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; margin-left: 20px; }
+  .label { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; padding: 6px 12px; margin: 48px 0 20px; }
+  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 40px; }
+  article h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin: 40px 0 14px; padding-top: 8px; border-top: 2px solid var(--ink); }
+  article p { margin-bottom: 16px; font-size: 16px; }
+  article ul { margin: 0 0 16px 22px; }
+  article li { margin-bottom: 8px; font-size: 16px; }
+  article strong { font-weight: 800; }
+  article a { color: var(--accent); font-weight: 700; }
+  article table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14px; }
+  article th, article td { border: 2px solid var(--ink); padding: 10px 12px; text-align: left; }
+  article th { background: var(--ink); color: #fff; font-weight: 800; }
+  .formula { background: var(--gray); border-left: 4px solid var(--accent); padding: 14px 16px; font-weight: 800; font-size: 15px; }
+  .cta { margin: 48px 0; background: var(--ink); color: #fff; padding: 28px 24px; }
+  .cta h3 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .cta p { font-size: 14px; opacity: .8; margin-bottom: 16px; }
+  .cta a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 900; padding: 12px 28px; font-size: 15px; }
+  .other { margin: 48px 0; }
+  .other h3 { font-size: 16px; font-weight: 900; margin-bottom: 12px; }
+  .other a { display: block; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .other a:hover { color: var(--accent); }
+  .disclaimer { margin: 32px 0; padding: 16px; background: var(--gray); font-size: 12px; color: var(--mid); border-left: 4px solid var(--accent); }
+  footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">마진<span>랩</span></a>
+    <nav>
+      <a href="index.html#calc">계산기</a>
+      <a href="index.html#guide">마진 가이드</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <span class="label">GUIDE 02</span>
+  <h1>FBA 수수료, 사이즈 티어가 마진을 결정한다</h1>
+  <article>
+<p>같은 카테고리, 비슷한 판매가의 두 상품이 있어도 한쪽만 돈을 버는 경우가 있습니다. 차이는 대부분 <strong>FBA 풀필먼트 수수료</strong>에서 납니다. 이 수수료는 협상이 불가능하고, 오직 상품의 <strong>크기와 무게</strong>로만 결정되기 때문에 소싱 단계에서 이미 승부의 절반이 끝납니다.</p>
+
+<h2>티어 구조: 계단식으로 뛴다</h2>
+<p>FBA 수수료는 연속적으로 늘어나는 게 아니라 <strong>티어(구간)별 계단식</strong>으로 뜁니다. 대략의 구조는 이렇습니다.</p>
+<ul>
+<li><strong>Small Standard(소형 표준)</strong> — 봉투에 들어가는 가볍고 얇은 상품. 개당 $3 초중반대</li>
+<li><strong>Large Standard(대형 표준)</strong> — 대부분의 일반 상품. 무게 구간별로 $4~$6대</li>
+<li><strong>Oversize(특대)</strong> — 부피가 큰 상품. $9 이상으로 크게 점프</li>
+</ul>
+<p>중요한 건 경계값입니다. 무게가 티어 경계를 1온스만 넘어도 다음 구간 요금이 통째로 적용됩니다. 포장 박스 두께 몇 mm, 완충재 몇 g 차이로 <strong>개당 $0.5~$1 이상</strong>이 1년 내내 빠져나갈 수 있습니다.</p>
+
+<h2>부피 무게(Dimensional Weight)의 함정</h2>
+<p class="formula">청구 무게 = max(실제 무게, 가로×세로×높이 ÷ 부피 무게 상수)</p>
+<p>가벼워도 부피가 크면 부피 무게로 청구됩니다. 인형·쿠션·수납용품처럼 가볍고 큰 상품이 FBA에서 불리한 이유입니다. 반대로 작고 밀도 높은 상품(액세서리, 공구, 화장품)은 FBA와 궁합이 좋습니다.</p>
+
+<h2>소싱 단계에서 해볼 것</h2>
+<ul>
+<li>샘플을 받으면 <strong>포장 완제품 상태</strong>의 3변 치수와 무게를 측정해 티어 경계와 비교</li>
+<li>경계에 걸쳐 있다면 패키지 축소·경량화로 한 티어 아래로 내릴 수 있는지 확인</li>
+<li>세트 구성(2개입 등)으로 판매가를 올려 수수료 비중을 낮추는 방법도 검토</li>
+</ul>
+<p>내 상품의 FBA 수수료가 마진에서 차지하는 비중은 <a href="index.html#calc">마진 계산기</a>에서 수수료 값을 바꿔가며 바로 비교해볼 수 있습니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 정확한 요율은 어디서 확인하나요?</strong><br>셀러센트럴의 수익성 계산기(Revenue Calculator)에 ASIN이나 치수를 넣으면 현재 요율 기준 수수료가 나옵니다. 요율표는 매년 개정되므로 반드시 최신 기준으로 확인하세요.</p>
+<p><strong>Q. 수수료가 갑자기 올랐어요.</strong><br>창고에서 재측정되어 티어가 바뀌는 경우가 있습니다. 셀러센트럴에서 측정값 이의제기(재측정 요청)가 가능합니다.</p>
+  </article>
+  <div class="cta">
+    <h3>내 상품 마진은 얼마일까?</h3>
+    <p>수수료·광고·반품까지 반영한 개당 순이익을 30초 만에 계산해 보세요.</p>
+    <a href="index.html#calc">마진 계산기 열기 →</a>
+  </div>
+  <div class="other">
+    <h3>다른 가이드</h3>
+    <a href="guide01-fees-structure.html">GUIDE 01 — 아마존 수수료 구조 한눈에 보기</a>
+    <a href="guide03-acos-tacos.html">GUIDE 03 — ACoS vs TACoS — 광고 지표 제대로 읽기</a>
+    <a href="guide04-breakeven-acos.html">GUIDE 04 — 손익분기 ACoS — 광고비 한도 정하는 법</a>
+    <a href="guide05-returns-cost.html">GUIDE 05 — 반품이 마진을 갉아먹는 구조</a>
+    <a href="guide06-exchange-rate.html">GUIDE 06 — 환율과 정산 — 달러 매출을 원화로 지키기</a>
+    <a href="guide07-customs-import.html">GUIDE 07 — 상륙원가(Landed Cost) 계산하기</a>
+    <a href="guide08-fba-vs-fbm.html">GUIDE 08 — FBA vs FBM — 뭐가 유리한가</a>
+    <a href="guide09-storage-fees.html">GUIDE 09 — 보관료와 장기보관 수수료 — 재고 회전율</a>
+    <a href="guide10-margin-improve.html">GUIDE 10 — 가격 인상 vs 원가 절감 — 마진 개선 우선순위</a>
+  </div>
+  <div class="disclaimer">⚠️ 본 글은 일반적인 정보를 다루며, 아마존 수수료율과 정책은 카테고리·시기에 따라 달라질 수 있습니다. 실제 의사결정 전에는 셀러센트럴의 최신 요율표와 정책을 반드시 확인하세요.</div>
+</div>
+<footer><div class="wrap">마진랩 © 2026 · 본 사이트의 모든 내용은 참고용이며 법적 효력이 없습니다</div></footer>
+</body>
+</html>

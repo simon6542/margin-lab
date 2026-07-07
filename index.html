@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마진랩 — 아마존 셀러 마진 계산기 & 손익분기 진단</title>
+<meta name="description" content="레퍼럴·FBA·광고비·반품·환율까지 반영한 아마존 개당 순이익을 30초 만에 계산하고, 손익분기 판매가와 마진 개선 시나리오를 비교해보세요.">
+<style>
+  :root {
+    --ink: #111111;
+    --paper: #ffffff;
+    --accent: #ff4d00;
+    --gray: #f4f4f4;
+    --mid: #757575;
+    --line: #e0e0e0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header { border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; margin-left: 20px; }
+
+  /* Hero */
+  .hero { padding: 64px 0 48px; }
+  .hero h1 {
+    font-size: clamp(34px, 6vw, 58px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.12;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { margin-top: 18px; font-size: 17px; color: var(--mid); max-width: 560px; }
+
+  /* Sections */
+  section { padding: 48px 0; }
+  .section-label {
+    display: inline-block; background: var(--ink); color: #fff;
+    font-size: 12px; font-weight: 800; letter-spacing: 1.5px;
+    padding: 6px 12px; margin-bottom: 20px; text-transform: uppercase;
+  }
+  h2 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 8px; }
+  .sub { color: var(--mid); margin-bottom: 28px; font-size: 15px; }
+
+  /* Form */
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+  @media (max-width: 640px) { .calc-grid { grid-template-columns: 1fr; } }
+  .field label { display: block; font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+  .field input, .field select {
+    width: 100%; padding: 13px 14px; font-size: 16px;
+    border: 2px solid var(--ink); background: #fff; font-weight: 600;
+  }
+  .field input:focus, .field select:focus { outline: 3px solid var(--accent); outline-offset: -1px; }
+  .hint { font-size: 12px; color: var(--mid); margin-top: 4px; }
+
+  .btn {
+    display: inline-block; margin-top: 28px; padding: 16px 44px;
+    background: var(--ink); color: #fff; font-size: 17px; font-weight: 900;
+    border: none; cursor: pointer; letter-spacing: 0.5px;
+    transition: background .15s;
+  }
+  .btn:hover { background: var(--accent); }
+
+  /* Results */
+  #result { display: none; }
+  .result-hero {
+    background: var(--ink); color: #fff; padding: 36px 32px; margin-bottom: 28px;
+  }
+  .result-hero .amount { font-size: clamp(36px, 7vw, 56px); font-weight: 900; letter-spacing: -2px; color: var(--accent); }
+  .result-hero .amount.loss { color: #ff8f66; }
+  .result-hero .amount-label { font-size: 14px; font-weight: 700; opacity: .7; margin-bottom: 4px; }
+  .result-detail { margin-top: 16px; font-size: 14px; opacity: .85; }
+  .result-detail div { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.15); }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .kpi { border: 2px solid var(--ink); padding: 18px 16px; }
+  .kpi .k-label { font-size: 12px; font-weight: 800; color: var(--mid); letter-spacing: .5px; }
+  .kpi .k-value { font-size: 24px; font-weight: 900; letter-spacing: -1px; margin-top: 4px; }
+  .kpi .k-value.accent { color: var(--accent); }
+  .kpi .k-sub { font-size: 12px; color: var(--mid); margin-top: 2px; }
+
+  .scenario-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .scenario { border: 2px solid var(--ink); padding: 24px 20px; position: relative; }
+  .scenario.best { background: var(--ink); color: #fff; }
+  .scenario .tag {
+    position: absolute; top: -12px; left: 16px; background: var(--accent);
+    color: #fff; font-size: 11px; font-weight: 800; padding: 3px 10px; letter-spacing: 1px;
+  }
+  .scenario h3 { font-size: 16px; font-weight: 900; margin-bottom: 10px; }
+  .scenario .s-amount { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+  .scenario.best .s-amount { color: var(--accent); }
+  .scenario .s-save { font-size: 13px; font-weight: 700; color: var(--accent); margin-top: 4px; }
+  .scenario p { font-size: 13px; margin-top: 10px; color: var(--mid); }
+  .scenario.best p { color: rgba(255,255,255,.75); }
+
+  .disclaimer {
+    margin-top: 28px; padding: 16px; background: var(--gray);
+    font-size: 12px; color: var(--mid); border-left: 4px solid var(--accent);
+  }
+
+  /* Guide */
+  .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .guide-card { border: 2px solid var(--ink); padding: 24px 20px; text-decoration: none; color: var(--ink); transition: all .15s; display: block; }
+  .guide-card:hover { background: var(--ink); color: #fff; }
+  .guide-card .num { font-size: 13px; font-weight: 800; color: var(--accent); }
+  .guide-card h3 { font-size: 17px; font-weight: 900; margin: 6px 0; letter-spacing: -0.5px; }
+  .guide-card p { font-size: 13px; color: var(--mid); }
+  .guide-card:hover p { color: rgba(255,255,255,.75); }
+
+  /* Game */
+  .game-box { border: 3px solid var(--ink); padding: 40px 24px; text-align: center; }
+  .game-box .game-title { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .game-box .game-sub { font-size: 14px; color: var(--mid); margin-bottom: 24px; }
+  #quizCard { background: var(--gray); padding: 28px 20px; margin-bottom: 18px; }
+  #quizQ { font-size: 18px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 6px; }
+  #quizInfo { font-size: 14px; color: var(--mid); }
+  .quiz-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+  .quiz-opts button {
+    padding: 14px 8px; font-size: 17px; font-weight: 900; border: 2px solid var(--ink);
+    background: #fff; cursor: pointer; transition: all .1s;
+  }
+  .quiz-opts button:hover { background: var(--ink); color: #fff; }
+  .quiz-opts button.correct { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .quiz-opts button.wrong { background: var(--mid); color: #fff; border-color: var(--mid); }
+  .game-stats { margin-top: 16px; font-size: 14px; font-weight: 700; }
+  .game-stats span { color: var(--accent); }
+  #quizMsg { margin-top: 12px; font-size: 15px; font-weight: 800; min-height: 22px; }
+
+  footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">마진<span>랩</span></div>
+    <nav>
+      <a href="#calc">계산기</a>
+      <a href="#guide">마진 가이드</a>
+      <a href="#game">쉬어가기</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <h1>아마존 마진,<br><em>광고비까지 넣고</em> 계산하세요</h1>
+    <p>레퍼럴·FBA·광고·반품·관세·환율까지 반영한 진짜 개당 순이익. 30초 입력으로 손익분기 판매가와 마진 개선 시나리오를 비교해보세요.</p>
+  </div>
+
+  <section id="calc">
+    <span class="section-label">Calculator</span>
+    <h2>아마존 셀러 마진 계산기</h2>
+    <p class="sub">아마존 미국(FBA) 기준 · 결과는 참고용입니다</p>
+
+    <div class="calc-grid">
+      <div class="field">
+        <label for="salePrice">판매가 (USD)</label>
+        <input type="text" id="salePrice" inputmode="decimal" placeholder="예: 24.99">
+        <div class="hint">아마존 리스팅 판매 가격</div>
+      </div>
+      <div class="field">
+        <label for="fx">환율 (원/달러)</label>
+        <input type="text" id="fx" inputmode="numeric" value="1,380">
+        <div class="hint">보수적으로 잡으려면 실제보다 낮게 입력</div>
+      </div>
+      <div class="field">
+        <label for="cost">제품 매입 원가 (원/개)</label>
+        <input type="text" id="cost" inputmode="numeric" placeholder="예: 4,500">
+        <div class="hint">공급처에서 사입하는 개당 가격</div>
+      </div>
+      <div class="field">
+        <label for="ship">국제 운송비 (원/개)</label>
+        <input type="text" id="ship" inputmode="numeric" placeholder="예: 1,200">
+        <div class="hint">한국→미국 아마존 창고 입고까지, 개당 배분 비용</div>
+      </div>
+      <div class="field">
+        <label for="duty">관세율 (%)</label>
+        <input type="text" id="duty" inputmode="decimal" placeholder="예: 0">
+        <div class="hint">원가+운송비에 부과 · 면세면 0</div>
+      </div>
+      <div class="field">
+        <label for="refPct">레퍼럴 수수료 (%)</label>
+        <input type="text" id="refPct" inputmode="decimal" value="15">
+        <div class="hint">대부분 카테고리 15% · 뷰티/가전 등은 8~15%</div>
+      </div>
+      <div class="field">
+        <label for="fbaFee">FBA 풀필먼트 수수료 (USD/개)</label>
+        <input type="text" id="fbaFee" inputmode="decimal" placeholder="예: 4.25">
+        <div class="hint">
+          사이즈 티어 감 잡기:
+          <a href="#" onclick="setFba(3.5);return false;" style="color:var(--accent);font-weight:700;">소형 $3.5</a> ·
+          <a href="#" onclick="setFba(4.5);return false;" style="color:var(--accent);font-weight:700;">표준 ~1lb $4.5</a> ·
+          <a href="#" onclick="setFba(5.5);return false;" style="color:var(--accent);font-weight:700;">표준 ~2lb $5.5</a> ·
+          <a href="#" onclick="setFba(7.0);return false;" style="color:var(--accent);font-weight:700;">대형 $7+</a>
+        </div>
+      </div>
+      <div class="field">
+        <label for="storage">월 보관료 (USD/개)</label>
+        <input type="text" id="storage" inputmode="decimal" placeholder="예: 0.3 · 모르면 비워두세요">
+        <div class="hint">재고 회전 1개월 기준 개당 배분액</div>
+      </div>
+      <div class="field">
+        <label for="tacos">광고비율 TACoS (%)</label>
+        <input type="text" id="tacos" inputmode="decimal" value="10">
+        <div class="hint">전체 매출 대비 광고비 · 초기 런칭은 15~30%도 흔함</div>
+      </div>
+      <div class="field">
+        <label for="retRate">반품률 (%)</label>
+        <input type="text" id="retRate" inputmode="decimal" value="3">
+        <div class="hint">카테고리 평균 2~5% · 의류/신발은 15%+</div>
+      </div>
+      <div class="field">
+        <label for="unsell">반품 폐기율 (%)</label>
+        <input type="text" id="unsell" inputmode="decimal" value="50">
+        <div class="hint">반품 중 재판매 불가 비율 · 보수적으로 50% 권장</div>
+      </div>
+      <div class="field">
+        <label for="units">월 예상 판매량 (개)</label>
+        <input type="text" id="units" inputmode="numeric" placeholder="예: 300 · 비워두면 개당만 계산">
+      </div>
+    </div>
+
+    <button class="btn" onclick="calculate()">마진 계산하기</button>
+
+    <div id="result">
+      <div class="result-hero">
+        <div class="amount-label">개당 순이익 (반품·광고 반영 평균)</div>
+        <div class="amount" id="mainAmount">$0.00</div>
+        <div class="result-detail" id="detailRows"></div>
+      </div>
+
+      <div class="kpi-grid" id="kpis"></div>
+
+      <span class="section-label">Scenarios</span>
+      <h2>마진 개선 시나리오</h2>
+      <p class="sub">지금 조건 vs 한 가지씩 개선했을 때 — 개당 순이익이 이렇게 달라집니다</p>
+      <div class="scenario-grid" id="scenarios"></div>
+
+      <div class="disclaimer">
+        ⚠️ 본 계산 결과는 이해를 돕기 위한 <strong>참고용 추정치</strong>입니다. 아마존 수수료율·FBA 요율은 카테고리와 시즌, 정책 개정에 따라 달라지며, 반품 처리·폐기 비용 등은 단순화된 가정을 사용합니다. 실제 손익은 셀러센트럴 정산 리포트 기준으로 반드시 확인하세요.
+      </div>
+    </div>
+  </section>
+
+  <section id="guide">
+    <span class="section-label">Guide</span>
+    <h2>아마존 마진 가이드</h2>
+    <p class="sub">숫자로 망하지 않기 위해 알아야 할 것들을 정리했습니다</p>
+    <div class="guide-grid">
+      <a class="guide-card" href="guide01-fees-structure.html">
+        <div class="num">GUIDE 01</div>
+        <h3>아마존 수수료 구조 한눈에 보기</h3>
+        <p>레퍼럴 15%의 의미, 판매가에서 돈이 빠져나가는 순서, 셀러가 실제로 손에 쥐는 비율.</p>
+      </a>
+      <a class="guide-card" href="guide02-fba-fee-tiers.html">
+        <div class="num">GUIDE 02</div>
+        <h3>FBA 수수료, 사이즈 티어가 마진을 결정한다</h3>
+        <p>무게·부피 티어의 구조, 패키징 몇 mm 차이로 개당 $1 이상 갈리는 이유.</p>
+      </a>
+      <a class="guide-card" href="guide03-acos-tacos.html">
+        <div class="num">GUIDE 03</div>
+        <h3>ACoS vs TACoS — 광고 지표 제대로 읽기</h3>
+        <p>두 지표의 차이, 마진 계산에는 왜 TACoS를 써야 하는지, 단계별 목표 수치.</p>
+      </a>
+      <a class="guide-card" href="guide04-breakeven-acos.html">
+        <div class="num">GUIDE 04</div>
+        <h3>손익분기 ACoS — 광고비 한도 정하는 법</h3>
+        <p>내 마진에서 광고비를 얼마까지 써도 되는지, 공식 하나로 계산하는 방법.</p>
+      </a>
+      <a class="guide-card" href="guide05-returns-cost.html">
+        <div class="num">GUIDE 05</div>
+        <h3>반품이 마진을 갉아먹는 구조</h3>
+        <p>반품 시 돌려받는 돈과 못 받는 돈, 반품률 5%가 순이익을 20% 깎는 계산.</p>
+      </a>
+      <a class="guide-card" href="guide06-exchange-rate.html">
+        <div class="num">GUIDE 06</div>
+        <h3>환율과 정산 — 달러 매출을 원화로 지키기</h3>
+        <p>정산 주기와 환전 수수료, 마진 계산에 보수적 환율을 쓰는 이유.</p>
+      </a>
+      <a class="guide-card" href="guide07-customs-import.html">
+        <div class="num">GUIDE 07</div>
+        <h3>상륙원가(Landed Cost) 계산하기</h3>
+        <p>매입가만 원가가 아니다 — 운송비·관세·검사비까지 개당 원가에 넣는 법.</p>
+      </a>
+      <a class="guide-card" href="guide08-fba-vs-fbm.html">
+        <div class="num">GUIDE 08</div>
+        <h3>FBA vs FBM — 뭐가 유리한가</h3>
+        <p>수수료 vs 직접 배송비의 손익 비교, 상품 유형별 선택 기준.</p>
+      </a>
+      <a class="guide-card" href="guide09-storage-fees.html">
+        <div class="num">GUIDE 09</div>
+        <h3>보관료와 장기보관 수수료 — 재고 회전율</h3>
+        <p>Q4 성수기 보관료 급등, 재고가 늦게 팔릴수록 마진이 사라지는 구조.</p>
+      </a>
+      <a class="guide-card" href="guide10-margin-improve.html">
+        <div class="num">GUIDE 10</div>
+        <h3>가격 인상 vs 원가 절감 — 마진 개선 우선순위</h3>
+        <p>같은 10%라도 효과가 다르다 — 마진 레버 4가지의 효과 크기 비교.</p>
+      </a>
+    </div>
+  </section>
+
+  <section id="game">
+    <span class="section-label">Break Time</span>
+    <h2>쉬어가기 — 마진 감각 테스트</h2>
+    <p class="sub">숫자에 지친 뇌를 잠시 리셋하세요. 판매가와 총비용을 보고 마진율을 맞혀보세요!</p>
+    <div class="game-box">
+      <div id="quizCard">
+        <div id="quizQ">시작 버튼을 누르세요</div>
+        <div id="quizInfo">판매가와 총비용이 나오면, 마진율을 고르면 됩니다</div>
+      </div>
+      <div class="quiz-opts" id="quizOpts">
+        <button onclick="startQuiz()">게임 시작</button>
+      </div>
+      <div id="quizMsg"></div>
+      <div class="game-stats">
+        연속 정답: <span id="streak">0</span> &nbsp;|&nbsp; 최고 기록: <span id="bestStreak">0</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    마진랩 © 2026 · 본 사이트의 모든 계산 결과는 참고용이며 법적 효력이 없습니다
+  </div>
+</footer>
+
+<script>
+// ---------- 유틸 ----------
+function numVal(id) { // 콤마 허용 실수
+  const v = document.getElementById(id).value.replace(/[^0-9.]/g, '');
+  return v ? parseFloat(v) : 0;
+}
+function fmtUsd(v) {
+  const sign = v < 0 ? '-' : '';
+  return sign + '$' + Math.abs(v).toFixed(2);
+}
+function fmtKrw(v) {
+  const sign = v < 0 ? '-' : '';
+  return sign + Math.abs(Math.round(v)).toLocaleString() + '원';
+}
+function fmtPct(v) { return (v * 100).toFixed(1) + '%'; }
+// 정수 입력 콤마 자동
+['fx','cost','ship','units'].forEach(id => {
+  document.getElementById(id).addEventListener('input', e => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    e.target.value = raw ? parseInt(raw,10).toLocaleString() : '';
+  });
+});
+function setFba(v) { document.getElementById('fbaFee').value = v.toFixed(2); }
+
+// ---------- 마진 계산 (단위: USD/개) ----------
+// opt: price, fx, costKrw, shipKrw, duty, ref, fba, storage, tacos, ret, unsell
+function computeMargin(opt) {
+  const landedKrw = (opt.costKrw + opt.shipKrw) * (1 + opt.duty);
+  const L = landedKrw / opt.fx;                    // 상륙원가 (USD)
+  const ref = opt.price * opt.ref;                 // 레퍼럴 수수료
+  const refundAdmin = Math.min(ref * 0.2, 5);      // 반품 시 환불 처리 수수료 (레퍼럴의 20%, 최대 $5)
+  const r = opt.ret, u = opt.unsell;
+
+  const netRevenue = opt.price * (1 - r);          // 반품분 환불 제외 매출
+  const netReferral = ref * (1 - r) + r * refundAdmin;
+  const cogs = L * ((1 - r) + r * u);              // 반품 중 폐기분은 원가 손실
+  const ad = opt.price * opt.tacos;                // 광고비 (TACoS)
+  const profit = netRevenue - netReferral - opt.fba - opt.storage - ad - cogs;
+
+  return {
+    profit, L, ref, ad,
+    margin: opt.price > 0 ? profit / opt.price : 0,
+    roi: L > 0 ? profit / L : 0,
+    returnCost: opt.price * r - (ref * r - r * refundAdmin) + r * u * L, // 반품으로 새는 총액(참고 표시용)
+    beTacos: opt.price > 0 ? (profit + ad) / opt.price : 0, // 이익 0이 되는 TACoS
+  };
+}
+
+// 손익분기 판매가: profit(P) = 0 을 이분탐색 (P에 대해 단조증가)
+function breakevenPrice(opt) {
+  let lo = 0.01, hi = 10000;
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2;
+    if (computeMargin({ ...opt, price: mid }).profit >= 0) hi = mid; else lo = mid;
+  }
+  return hi;
+}
+
+function calculate() {
+  const opt = {
+    price: numVal('salePrice'),
+    fx: numVal('fx') || 1380,
+    costKrw: numVal('cost'),
+    shipKrw: numVal('ship'),
+    duty: numVal('duty') / 100,
+    ref: numVal('refPct') / 100,
+    fba: numVal('fbaFee'),
+    storage: numVal('storage'),
+    tacos: numVal('tacos') / 100,
+    ret: numVal('retRate') / 100,
+    unsell: numVal('unsell') / 100,
+  };
+  if (!opt.price || !opt.costKrw) { alert('판매가와 제품 매입 원가를 입력해주세요.'); return; }
+
+  const now = computeMargin(opt);
+  const units = numVal('units');
+
+  // 결과 표시
+  document.getElementById('result').style.display = 'block';
+  const amountEl = document.getElementById('mainAmount');
+  amountEl.textContent = `${fmtUsd(now.profit)} (${fmtKrw(now.profit * opt.fx)})`;
+  amountEl.className = 'amount' + (now.profit < 0 ? ' loss' : '');
+
+  document.getElementById('detailRows').innerHTML = `
+    <div><span>판매가</span><strong>${fmtUsd(opt.price)}</strong></div>
+    <div><span>상륙원가 (매입+운송+관세)</span><strong>-${fmtUsd(now.L)} <small>(${fmtKrw(now.L * opt.fx)})</small></strong></div>
+    <div><span>레퍼럴 수수료 (${(opt.ref*100).toFixed(1)}%)</span><strong>-${fmtUsd(now.ref)}</strong></div>
+    <div><span>FBA 풀필먼트 + 보관료</span><strong>-${fmtUsd(opt.fba + opt.storage)}</strong></div>
+    <div><span>광고비 (TACoS ${(opt.tacos*100).toFixed(1)}%)</span><strong>-${fmtUsd(now.ad)}</strong></div>
+    <div><span>반품 비용 (반품률 ${(opt.ret*100).toFixed(1)}% 반영)</span><strong>-${fmtUsd(Math.max(now.returnCost,0))}</strong></div>`;
+
+  // KPI
+  const kpis = [
+    { label: '마진율', value: fmtPct(now.margin), accent: now.margin >= 0.15, sub: '순이익 ÷ 판매가 · 15%+ 권장' },
+    { label: 'ROI', value: fmtPct(now.roi), accent: now.roi >= 1, sub: '순이익 ÷ 상륙원가 · 100%+ 이상적' },
+    { label: '손익분기 판매가', value: fmtUsd(breakevenPrice(opt)), accent: false, sub: '이 가격 아래로 팔면 적자' },
+    { label: '손익분기 TACoS', value: fmtPct(Math.max(now.beTacos, 0)), accent: false, sub: '광고비율이 이 값을 넘으면 적자' },
+  ];
+  if (units > 0) {
+    kpis.push({ label: '월 순이익 (' + units.toLocaleString() + '개)', value: fmtKrw(now.profit * units * opt.fx), accent: now.profit > 0, sub: fmtUsd(now.profit * units) + ' · 환율 ' + opt.fx.toLocaleString() + '원' });
+  }
+  document.getElementById('kpis').innerHTML = kpis.map(k => `
+    <div class="kpi">
+      <div class="k-label">${k.label}</div>
+      <div class="k-value${k.accent ? ' accent' : ''}">${k.value}</div>
+      <div class="k-sub">${k.sub}</div>
+    </div>`).join('');
+
+  // 시나리오 비교
+  const scenarios = [];
+  scenarios.push({ name: '지금 조건 그대로', res: now, desc: '입력하신 현재 조건 기준입니다.' });
+  scenarios.push({ name: '판매가 10% 인상', res: computeMargin({ ...opt, price: opt.price * 1.1 }), price: opt.price * 1.1,
+    desc: '리뷰·브랜딩이 받쳐주면 가장 강력한 레버입니다. 인상분은 거의 그대로 이익이 됩니다.' });
+  scenarios.push({ name: '매입 원가 10% 절감', res: computeMargin({ ...opt, costKrw: opt.costKrw * 0.9 }),
+    desc: '수량 협상·공급처 이원화로 절감. 원가는 관세·폐기 비용까지 같이 줄어듭니다.' });
+  if (opt.tacos > 0) {
+    scenarios.push({ name: 'TACoS 5%p 개선', res: computeMargin({ ...opt, tacos: Math.max(opt.tacos - 0.05, 0) }),
+      desc: '오가닉 매출 비중을 키우면 광고비율이 내려갑니다. 판매가의 5%가 그대로 이익으로.' });
+  }
+  if (opt.ret > 0) {
+    scenarios.push({ name: '반품률 절반으로', res: computeMargin({ ...opt, ret: opt.ret / 2 }),
+      desc: '상세페이지 정확도·사이즈 가이드·포장 개선으로 반품 손실을 줄입니다.' });
+  }
+  if (opt.fba >= 0.5) {
+    scenarios.push({ name: 'FBA 티어 한 단계 절감 (-$0.5)', res: computeMargin({ ...opt, fba: opt.fba - 0.5 }),
+      desc: '패키징 경량화·축소로 사이즈 티어를 낮추면 개당 수수료가 내려갑니다.' });
+  }
+
+  const maxProfit = Math.max(...scenarios.map(x => x.res.profit));
+  document.getElementById('scenarios').innerHTML = scenarios.map((sc) => {
+    const gain = sc.res.profit - now.profit;
+    const isBest = sc.res.profit === maxProfit && scenarios.length > 1 && sc.res.profit > now.profit;
+    const p = sc.price || opt.price;
+    return `<div class="scenario${isBest ? ' best' : ''}">
+      ${isBest ? '<span class="tag">BEST</span>' : ''}
+      <h3>${sc.name}</h3>
+      <div class="s-amount">${fmtUsd(sc.res.profit)}</div>
+      <div style="font-size:13px;font-weight:700;margin-top:2px;">마진율 ${fmtPct(p > 0 ? sc.res.profit / p : 0)}</div>
+      ${gain > 0.005 ? `<div class="s-save">▲ 개당 ${fmtUsd(gain)} (${fmtKrw(gain * opt.fx)}) 개선</div>` : ''}
+      <p>${sc.desc}</p>
+    </div>`;
+  }).join('');
+
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ---------- 마진 감각 게임 ----------
+let streak = 0, bestStreak = 0, quizAnswer = 0, quizLock = false;
+
+function startQuiz() {
+  quizLock = false;
+  document.getElementById('quizMsg').textContent = '';
+  // 무작위 판매가/비용 생성 → 마진율 5~60% 범위
+  const price = Math.round((10 + Math.random() * 60) * 100) / 100;
+  const marginPct = 5 + Math.floor(Math.random() * 12) * 5; // 5~60%, 5 단위
+  const cost = Math.round(price * (1 - marginPct / 100) * 100) / 100;
+  quizAnswer = marginPct;
+
+  document.getElementById('quizQ').textContent = `판매가 $${price.toFixed(2)} · 총비용 $${cost.toFixed(2)}`;
+  document.getElementById('quizInfo').textContent = '마진율은 몇 %일까요?';
+
+  // 보기 4개: 정답 + 오답 3개 (±5~15%p)
+  const opts = new Set([marginPct]);
+  while (opts.size < 4) {
+    const off = (Math.floor(Math.random() * 3) + 1) * 5 * (Math.random() < 0.5 ? -1 : 1);
+    const cand = marginPct + off;
+    if (cand >= 5 && cand <= 60) opts.add(cand);
+  }
+  const shuffled = [...opts].sort(() => Math.random() - 0.5);
+  document.getElementById('quizOpts').innerHTML = shuffled.map(v =>
+    `<button onclick="answerQuiz(this, ${v})">${v}%</button>`).join('');
+}
+
+function answerQuiz(btn, v) {
+  if (quizLock) return;
+  quizLock = true;
+  const correct = v === quizAnswer;
+  btn.className = correct ? 'correct' : 'wrong';
+  if (correct) {
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    document.getElementById('quizMsg').textContent = '정답! 🎯';
+  } else {
+    streak = 0;
+    document.getElementById('quizMsg').textContent = `아쉽! 정답은 ${quizAnswer}% 였습니다`;
+    [...document.querySelectorAll('#quizOpts button')].forEach(b => {
+      if (parseInt(b.textContent) === quizAnswer) b.className = 'correct';
+    });
+  }
+  document.getElementById('streak').textContent = streak;
+  document.getElementById('bestStreak').textContent = bestStreak;
+  setTimeout(startQuiz, 1400);
+}
+</script>
+</body>
+</html>

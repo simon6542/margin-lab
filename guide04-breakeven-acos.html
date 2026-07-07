@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>손익분기 ACoS — 광고비 한도 정하는 법 | 마진랩</title>
+<meta name="description" content="내 마진 구조에서 광고비를 얼마까지 써도 되는지, 손익분기 ACoS 공식과 목표 ACoS 설정법을 설명합니다.">
+<style>
+  :root { --ink: #111111; --paper: #ffffff; --accent: #ff4d00; --gray: #f4f4f4; --mid: #757575; --line: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.75; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; margin-left: 20px; }
+  .label { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; padding: 6px 12px; margin: 48px 0 20px; }
+  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 40px; }
+  article h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin: 40px 0 14px; padding-top: 8px; border-top: 2px solid var(--ink); }
+  article p { margin-bottom: 16px; font-size: 16px; }
+  article ul { margin: 0 0 16px 22px; }
+  article li { margin-bottom: 8px; font-size: 16px; }
+  article strong { font-weight: 800; }
+  article a { color: var(--accent); font-weight: 700; }
+  article table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14px; }
+  article th, article td { border: 2px solid var(--ink); padding: 10px 12px; text-align: left; }
+  article th { background: var(--ink); color: #fff; font-weight: 800; }
+  .formula { background: var(--gray); border-left: 4px solid var(--accent); padding: 14px 16px; font-weight: 800; font-size: 15px; }
+  .cta { margin: 48px 0; background: var(--ink); color: #fff; padding: 28px 24px; }
+  .cta h3 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .cta p { font-size: 14px; opacity: .8; margin-bottom: 16px; }
+  .cta a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 900; padding: 12px 28px; font-size: 15px; }
+  .other { margin: 48px 0; }
+  .other h3 { font-size: 16px; font-weight: 900; margin-bottom: 12px; }
+  .other a { display: block; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .other a:hover { color: var(--accent); }
+  .disclaimer { margin: 32px 0; padding: 16px; background: var(--gray); font-size: 12px; color: var(--mid); border-left: 4px solid var(--accent); }
+  footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">마진<span>랩</span></a>
+    <nav>
+      <a href="index.html#calc">계산기</a>
+      <a href="index.html#guide">마진 가이드</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <span class="label">GUIDE 04</span>
+  <h1>손익분기 ACoS — 광고비 한도 정하는 법</h1>
+  <article>
+<p>"광고비를 얼마까지 써도 될까?"라는 질문에는 감이 아니라 공식으로 답해야 합니다. 그 기준선이 <strong>손익분기 ACoS(Break-even ACoS)</strong>입니다. 이 값을 모르고 입찰가를 만지는 것은 한도를 모르는 카드를 긁는 것과 같습니다.</p>
+
+<h2>공식은 하나</h2>
+<p class="formula">손익분기 ACoS = 광고 전 마진율 = (판매가 − 상륙원가 − 아마존 수수료) ÷ 판매가</p>
+<p>예를 들어 판매가 $25, 상륙원가 $6, 레퍼럴+FBA 수수료 $8.25라면 광고 전 마진은 $10.75, 손익분기 ACoS는 43%입니다. 광고 매출에 대해 ACoS가 43%를 넘는 캠페인은 팔 때마다 손해라는 뜻입니다.</p>
+
+<h2>목표 ACoS는 손익분기보다 한참 아래로</h2>
+<p>손익분기 ACoS는 "여기까지는 괜찮다"가 아니라 <strong>"여기 닿으면 이익이 0"</strong>인 선입니다. 실제 목표는 원하는 마진을 남긴 값으로 잡습니다.</p>
+<p class="formula">목표 ACoS = 손익분기 ACoS − 목표 마진율</p>
+<p>위 예시에서 마진 20%를 남기고 싶다면 목표 ACoS는 43% − 20% = 23%입니다. 여기에 반품 손실과 보관료까지 넣으면 몇 %p 더 내려갑니다.</p>
+
+<h2>단계별로 다르게 쓰는 법</h2>
+<ul>
+<li><strong>런칭기</strong> — 손익분기 ACoS까지 허용. 이익 대신 리뷰·랭킹을 산다는 명확한 목적이 있을 때만</li>
+<li><strong>성장기</strong> — 목표 ACoS 기준으로 키워드별 옥석 가리기. 손익분기를 넘는 키워드는 입찰가 인하 또는 제외</li>
+<li><strong>안정기</strong> — 목표 ACoS를 유지하며 광고 의존도(TACoS)를 낮추는 데 집중</li>
+</ul>
+<p>내 상품의 손익분기 TACoS는 <a href="index.html#calc">마진 계산기</a>가 결과 화면에서 자동으로 계산해줍니다. 이 숫자를 광고 대시보드 옆에 붙여두세요.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 캠페인 전체 ACoS가 손익분기 아래인데 적자예요.</strong><br>광고 매출 기준 ACoS는 괜찮아도, 전체 매출 대비 광고비(TACoS)가 마진을 초과하면 적자가 납니다. <a href="guide03-acos-tacos.html">GUIDE 03</a>의 TACoS 관점으로 다시 보세요.</p>
+<p><strong>Q. 키워드마다 기준을 다르게 잡아야 하나요?</strong><br>구매 전환용 키워드는 목표 ACoS로, 브랜드 방어·신규 노출용 키워드는 손익분기 근처까지 허용하는 식의 이원화가 실무에서 일반적입니다.</p>
+  </article>
+  <div class="cta">
+    <h3>내 상품 마진은 얼마일까?</h3>
+    <p>수수료·광고·반품까지 반영한 개당 순이익을 30초 만에 계산해 보세요.</p>
+    <a href="index.html#calc">마진 계산기 열기 →</a>
+  </div>
+  <div class="other">
+    <h3>다른 가이드</h3>
+    <a href="guide01-fees-structure.html">GUIDE 01 — 아마존 수수료 구조 한눈에 보기</a>
+    <a href="guide02-fba-fee-tiers.html">GUIDE 02 — FBA 수수료, 사이즈 티어가 마진을 결정한다</a>
+    <a href="guide03-acos-tacos.html">GUIDE 03 — ACoS vs TACoS — 광고 지표 제대로 읽기</a>
+    <a href="guide05-returns-cost.html">GUIDE 05 — 반품이 마진을 갉아먹는 구조</a>
+    <a href="guide06-exchange-rate.html">GUIDE 06 — 환율과 정산 — 달러 매출을 원화로 지키기</a>
+    <a href="guide07-customs-import.html">GUIDE 07 — 상륙원가(Landed Cost) 계산하기</a>
+    <a href="guide08-fba-vs-fbm.html">GUIDE 08 — FBA vs FBM — 뭐가 유리한가</a>
+    <a href="guide09-storage-fees.html">GUIDE 09 — 보관료와 장기보관 수수료 — 재고 회전율</a>
+    <a href="guide10-margin-improve.html">GUIDE 10 — 가격 인상 vs 원가 절감 — 마진 개선 우선순위</a>
+  </div>
+  <div class="disclaimer">⚠️ 본 글은 일반적인 정보를 다루며, 아마존 수수료율과 정책은 카테고리·시기에 따라 달라질 수 있습니다. 실제 의사결정 전에는 셀러센트럴의 최신 요율표와 정책을 반드시 확인하세요.</div>
+</div>
+<footer><div class="wrap">마진랩 © 2026 · 본 사이트의 모든 내용은 참고용이며 법적 효력이 없습니다</div></footer>
+</body>
+</html>

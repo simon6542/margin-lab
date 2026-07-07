@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가격 인상 vs 원가 절감 — 마진 개선 우선순위 | 마진랩</title>
+<meta name="description" content="같은 10%라도 효과가 다릅니다. 가격·원가·광고·수수료 4가지 마진 레버의 효과 크기를 비교합니다.">
+<style>
+  :root { --ink: #111111; --paper: #ffffff; --accent: #ff4d00; --gray: #f4f4f4; --mid: #757575; --line: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.75; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; margin-left: 20px; }
+  .label { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; padding: 6px 12px; margin: 48px 0 20px; }
+  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 40px; }
+  article h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin: 40px 0 14px; padding-top: 8px; border-top: 2px solid var(--ink); }
+  article p { margin-bottom: 16px; font-size: 16px; }
+  article ul { margin: 0 0 16px 22px; }
+  article li { margin-bottom: 8px; font-size: 16px; }
+  article strong { font-weight: 800; }
+  article a { color: var(--accent); font-weight: 700; }
+  article table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14px; }
+  article th, article td { border: 2px solid var(--ink); padding: 10px 12px; text-align: left; }
+  article th { background: var(--ink); color: #fff; font-weight: 800; }
+  .formula { background: var(--gray); border-left: 4px solid var(--accent); padding: 14px 16px; font-weight: 800; font-size: 15px; }
+  .cta { margin: 48px 0; background: var(--ink); color: #fff; padding: 28px 24px; }
+  .cta h3 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .cta p { font-size: 14px; opacity: .8; margin-bottom: 16px; }
+  .cta a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 900; padding: 12px 28px; font-size: 15px; }
+  .other { margin: 48px 0; }
+  .other h3 { font-size: 16px; font-weight: 900; margin-bottom: 12px; }
+  .other a { display: block; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .other a:hover { color: var(--accent); }
+  .disclaimer { margin: 32px 0; padding: 16px; background: var(--gray); font-size: 12px; color: var(--mid); border-left: 4px solid var(--accent); }
+  footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">마진<span>랩</span></a>
+    <nav>
+      <a href="index.html#calc">계산기</a>
+      <a href="index.html#guide">마진 가이드</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <span class="label">GUIDE 10</span>
+  <h1>가격 인상 vs 원가 절감 — 마진 개선 우선순위</h1>
+  <article>
+<p>마진이 안 나올 때 셀러가 만질 수 있는 레버는 크게 4개입니다. <strong>판매가, 원가, 광고비, 수수료(사이즈)</strong>. 어느 것부터 당겨야 할까요? 같은 10% 개선이라도 순이익에 미치는 효과는 레버마다 다릅니다.</p>
+
+<h2>레버별 효과 크기</h2>
+<p>판매가 $25, 상륙원가 $6, 수수료 $8.25, 광고비 $2.5, 순이익 $8.25인 상품으로 비교해 봅니다.</p>
+<table>
+<tr><th>레버</th><th>변화</th><th>순이익 변화</th></tr>
+<tr><td>판매가 인상</td><td>+10% ($2.5)</td><td>+$2.09 (수수료·광고 증가분 제외)</td></tr>
+<tr><td>원가 절감</td><td>-10% ($0.6)</td><td>+$0.60</td></tr>
+<tr><td>광고 효율</td><td>TACoS 10%→7%</td><td>+$0.75</td></tr>
+<tr><td>FBA 티어 인하</td><td>-$0.50</td><td>+$0.50</td></tr>
+</table>
+<p>같은 "10%"라도 <strong>가격 인상의 효과가 압도적</strong>입니다. 가격은 순이익에 거의 그대로 꽂히지만, 원가 절감은 원가의 10%만큼만 이익이 늘기 때문입니다.</p>
+
+<h2>그럼 무조건 가격부터 올리면 되나?</h2>
+<p>가격 인상은 효과가 큰 만큼 <strong>판매량 감소 리스크</strong>를 동반합니다. 순서는 이렇게 잡는 것이 안전합니다.</p>
+<ul>
+<li><strong>1순위: 지키는 개선</strong> — 반품률 감소, FBA 재측정·패키징 경량화, 환전 수수료 절감. 판매량에 영향 없이 순이익만 올라감</li>
+<li><strong>2순위: 광고 효율화</strong> — 손익분기 ACoS를 넘는 키워드 정리. 매출이 다소 줄어도 이익은 늘어나는 경우가 많음</li>
+<li><strong>3순위: 원가 협상</strong> — 리오더 물량을 근거로 단가 인하·해상 전환. 시간이 걸리지만 확실함</li>
+<li><strong>4순위: 가격 인상</strong> — 리뷰가 쌓이고 오가닉 순위가 잡힌 뒤, $0.5~$1씩 단계적으로 테스트</li>
+</ul>
+<p class="formula">이익을 늘리는 순서: 새는 돈 막기 → 광고 다이어트 → 원가 협상 → 가격 테스트</p>
+
+<h2>시나리오로 먼저 돌려보기</h2>
+<p>각 레버를 당겼을 때 내 상품의 순이익이 얼마나 변하는지는 <a href="index.html#calc">마진 계산기</a>의 시나리오 비교가 자동으로 보여줍니다. 개선 폭이 가장 큰 레버부터 실행 계획을 세우세요.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 가격을 올리면 랭킹이 떨어지지 않나요?</strong><br>급격한 인상은 전환율 하락으로 랭킹에 영향을 줄 수 있습니다. 소폭·단계적으로 올리며 전환율을 모니터링하고, 쿠폰으로 체감가를 조절하는 방식이 무난합니다.</p>
+<p><strong>Q. 마진율 목표는 몇 %가 적당한가요?</strong><br>광고·반품 반영 후 15% 이상, ROI(순이익÷상륙원가) 100% 이상이 재고 리스크를 감안한 일반적인 기준선입니다.</p>
+  </article>
+  <div class="cta">
+    <h3>내 상품 마진은 얼마일까?</h3>
+    <p>수수료·광고·반품까지 반영한 개당 순이익을 30초 만에 계산해 보세요.</p>
+    <a href="index.html#calc">마진 계산기 열기 →</a>
+  </div>
+  <div class="other">
+    <h3>다른 가이드</h3>
+    <a href="guide01-fees-structure.html">GUIDE 01 — 아마존 수수료 구조 한눈에 보기</a>
+    <a href="guide02-fba-fee-tiers.html">GUIDE 02 — FBA 수수료, 사이즈 티어가 마진을 결정한다</a>
+    <a href="guide03-acos-tacos.html">GUIDE 03 — ACoS vs TACoS — 광고 지표 제대로 읽기</a>
+    <a href="guide04-breakeven-acos.html">GUIDE 04 — 손익분기 ACoS — 광고비 한도 정하는 법</a>
+    <a href="guide05-returns-cost.html">GUIDE 05 — 반품이 마진을 갉아먹는 구조</a>
+    <a href="guide06-exchange-rate.html">GUIDE 06 — 환율과 정산 — 달러 매출을 원화로 지키기</a>
+    <a href="guide07-customs-import.html">GUIDE 07 — 상륙원가(Landed Cost) 계산하기</a>
+    <a href="guide08-fba-vs-fbm.html">GUIDE 08 — FBA vs FBM — 뭐가 유리한가</a>
+    <a href="guide09-storage-fees.html">GUIDE 09 — 보관료와 장기보관 수수료 — 재고 회전율</a>
+  </div>
+  <div class="disclaimer">⚠️ 본 글은 일반적인 정보를 다루며, 아마존 수수료율과 정책은 카테고리·시기에 따라 달라질 수 있습니다. 실제 의사결정 전에는 셀러센트럴의 최신 요율표와 정책을 반드시 확인하세요.</div>
+</div>
+<footer><div class="wrap">마진랩 © 2026 · 본 사이트의 모든 내용은 참고용이며 법적 효력이 없습니다</div></footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아마존 수수료 구조 한눈에 보기 | 마진랩</title>
+<meta name="description" content="아마존 레퍼럴 수수료 15%의 의미와 판매가에서 돈이 빠져나가는 순서, 셀러가 실제로 손에 쥐는 비율을 예시로 설명합니다.">
+<style>
+  :root { --ink: #111111; --paper: #ffffff; --accent: #ff4d00; --gray: #f4f4f4; --mid: #757575; --line: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.75; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; margin-left: 20px; }
+  .label { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; padding: 6px 12px; margin: 48px 0 20px; }
+  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 40px; }
+  article h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin: 40px 0 14px; padding-top: 8px; border-top: 2px solid var(--ink); }
+  article p { margin-bottom: 16px; font-size: 16px; }
+  article ul { margin: 0 0 16px 22px; }
+  article li { margin-bottom: 8px; font-size: 16px; }
+  article strong { font-weight: 800; }
+  article a { color: var(--accent); font-weight: 700; }
+  article table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14px; }
+  article th, article td { border: 2px solid var(--ink); padding: 10px 12px; text-align: left; }
+  article th { background: var(--ink); color: #fff; font-weight: 800; }
+  .formula { background: var(--gray); border-left: 4px solid var(--accent); padding: 14px 16px; font-weight: 800; font-size: 15px; }
+  .cta { margin: 48px 0; background: var(--ink); color: #fff; padding: 28px 24px; }
+  .cta h3 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .cta p { font-size: 14px; opacity: .8; margin-bottom: 16px; }
+  .cta a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 900; padding: 12px 28px; font-size: 15px; }
+  .other { margin: 48px 0; }
+  .other h3 { font-size: 16px; font-weight: 900; margin-bottom: 12px; }
+  .other a { display: block; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .other a:hover { color: var(--accent); }
+  .disclaimer { margin: 32px 0; padding: 16px; background: var(--gray); font-size: 12px; color: var(--mid); border-left: 4px solid var(--accent); }
+  footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">마진<span>랩</span></a>
+    <nav>
+      <a href="index.html#calc">계산기</a>
+      <a href="index.html#guide">마진 가이드</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <span class="label">GUIDE 01</span>
+  <h1>아마존 수수료 구조 한눈에 보기</h1>
+  <article>
+<p>아마존에서 $25에 팔면 $25가 들어올 것 같지만, 셀러 계좌에 실제로 꽂히는 돈은 그 절반 근처인 경우가 많습니다. 판매가에서 돈이 빠져나가는 <strong>순서와 구조</strong>를 모르면, 잘 팔리는데도 통장이 비어 있는 상황을 겪게 됩니다.</p>
+
+<h2>판매가에서 돈이 빠지는 순서</h2>
+<ul>
+<li><strong>① 레퍼럴 수수료(Referral Fee)</strong> — 판매가의 일정 비율. 대부분 카테고리가 15%이고, 가전·카메라 등 일부는 8%, 액세서리류는 그 이상인 경우도 있습니다.</li>
+<li><strong>② FBA 풀필먼트 수수료</strong> — 아마존 창고에서 포장·배송해주는 대가로 개당 부과. 사이즈·무게 티어로 결정됩니다.</li>
+<li><strong>③ 보관료</strong> — 창고에 쌓아둔 부피만큼 매월 부과. 4분기 성수기에는 크게 오릅니다.</li>
+<li><strong>④ 광고비</strong> — 아마존이 떼는 건 아니지만, 신규 상품은 광고 없이 노출이 거의 없어 사실상 고정비입니다.</li>
+</ul>
+<p>여기까지가 "아마존 안"에서 빠지는 돈이고, 그 밖에서 <strong>제품 원가, 국제 운송비, 관세, 환전 비용, 반품 손실</strong>이 추가로 빠집니다.</p>
+
+<h2>예시: $25 상품의 실제 손익</h2>
+<table>
+<tr><th>항목</th><th>금액</th></tr>
+<tr><td>판매가</td><td>$25.00</td></tr>
+<tr><td>레퍼럴 15%</td><td>-$3.75</td></tr>
+<tr><td>FBA 수수료 (표준 사이즈)</td><td>-$4.50</td></tr>
+<tr><td>제품 원가+운송 (상륙원가)</td><td>-$6.00</td></tr>
+<tr><td>광고비 (TACoS 10%)</td><td>-$2.50</td></tr>
+<tr><td><strong>개당 순이익</strong></td><td><strong>약 $8.25 (마진율 33%)</strong></td></tr>
+</table>
+<p>여기서 반품률 3~5%와 보관료까지 반영하면 마진율은 몇 %p 더 내려갑니다. 즉 "레퍼럴 15%만 떼면 되겠지"라고 생각하고 들어가면, 실제 마진은 예상의 절반이 되기 쉽습니다.</p>
+
+<h2>셀러가 기억할 기준선</h2>
+<p class="formula">판매가의 약 30~35%는 아마존 수수료(레퍼럴+FBA)로 나간다고 가정하고 시작하라</p>
+<p>저가 상품일수록 FBA 수수료의 비중이 커져서 이 비율이 40~50%까지 올라갑니다. $10 이하 상품에서 마진 내기가 어려운 이유가 이것입니다. 내 상품의 정확한 수치는 <a href="index.html#calc">마진 계산기</a>에 넣어보면 30초 만에 확인할 수 있습니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 레퍼럴 수수료는 할인가 기준인가요?</strong><br>네, 실제 결제된 판매가 기준입니다. 쿠폰·할인 프로모션을 걸면 수수료도 그만큼 줄지만, 매출도 같이 줄어듭니다.</p>
+<p><strong>Q. 월 구독료도 있나요?</strong><br>프로페셔널 셀러 플랜은 월 $39.99입니다. 월 40개 이상 팔면 개당 수수료를 내는 개인 플랜보다 유리합니다.</p>
+  </article>
+  <div class="cta">
+    <h3>내 상품 마진은 얼마일까?</h3>
+    <p>수수료·광고·반품까지 반영한 개당 순이익을 30초 만에 계산해 보세요.</p>
+    <a href="index.html#calc">마진 계산기 열기 →</a>
+  </div>
+  <div class="other">
+    <h3>다른 가이드</h3>
+    <a href="guide02-fba-fee-tiers.html">GUIDE 02 — FBA 수수료, 사이즈 티어가 마진을 결정한다</a>
+    <a href="guide03-acos-tacos.html">GUIDE 03 — ACoS vs TACoS, 광고 지표 제대로 읽기</a>
+    <a href="guide04-breakeven-acos.html">GUIDE 04 — 손익분기 ACoS, 광고비 한도 정하는 법</a>
+    <a href="guide05-returns-cost.html">GUIDE 05 — 반품이 마진을 갉아먹는 구조</a>
+    <a href="guide06-exchange-rate.html">GUIDE 06 — 환율과 정산, 달러 매출을 원화로 지키기</a>
+    <a href="guide07-customs-import.html">GUIDE 07 — 상륙원가(Landed Cost) 계산하기</a>
+    <a href="guide08-fba-vs-fbm.html">GUIDE 08 — FBA vs FBM, 뭐가 유리한가</a>
+    <a href="guide09-storage-fees.html">GUIDE 09 — 보관료와 장기보관 수수료, 재고 회전율</a>
+    <a href="guide10-margin-improve.html">GUIDE 10 — 가격 인상 vs 원가 절감, 마진 개선 우선순위</a>
+  </div>
+  <div class="disclaimer">⚠️ 본 글은 일반적인 정보를 다루며, 아마존 수수료율과 정책은 카테고리·시기에 따라 달라질 수 있습니다. 실제 의사결정 전에는 셀러센트럴의 최신 요율표를 반드시 확인하세요.</div>
+</div>
+<footer><div class="wrap">마진랩 © 2026 · 본 사이트의 모든 내용은 참고용이며 법적 효력이 없습니다</div></footer>
+</body>
+</html>

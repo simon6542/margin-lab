@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>환율과 정산 — 달러 매출을 원화로 지키기 | 마진랩</title>
+<meta name="description" content="아마존 정산 주기와 환전 수수료, 마진 계산에 보수적 환율을 써야 하는 이유를 설명합니다.">
+<style>
+  :root { --ink: #111111; --paper: #ffffff; --accent: #ff4d00; --gray: #f4f4f4; --mid: #757575; --line: #e0e0e0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.75; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 2px solid var(--ink); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; margin-left: 20px; }
+  .label { display: inline-block; background: var(--ink); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; padding: 6px 12px; margin: 48px 0 20px; }
+  h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 40px; }
+  article h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin: 40px 0 14px; padding-top: 8px; border-top: 2px solid var(--ink); }
+  article p { margin-bottom: 16px; font-size: 16px; }
+  article ul { margin: 0 0 16px 22px; }
+  article li { margin-bottom: 8px; font-size: 16px; }
+  article strong { font-weight: 800; }
+  article a { color: var(--accent); font-weight: 700; }
+  article table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 14px; }
+  article th, article td { border: 2px solid var(--ink); padding: 10px 12px; text-align: left; }
+  article th { background: var(--ink); color: #fff; font-weight: 800; }
+  .formula { background: var(--gray); border-left: 4px solid var(--accent); padding: 14px 16px; font-weight: 800; font-size: 15px; }
+  .cta { margin: 48px 0; background: var(--ink); color: #fff; padding: 28px 24px; }
+  .cta h3 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .cta p { font-size: 14px; opacity: .8; margin-bottom: 16px; }
+  .cta a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 900; padding: 12px 28px; font-size: 15px; }
+  .other { margin: 48px 0; }
+  .other h3 { font-size: 16px; font-weight: 900; margin-bottom: 12px; }
+  .other a { display: block; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .other a:hover { color: var(--accent); }
+  .disclaimer { margin: 32px 0; padding: 16px; background: var(--gray); font-size: 12px; color: var(--mid); border-left: 4px solid var(--accent); }
+  footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">마진<span>랩</span></a>
+    <nav>
+      <a href="index.html#calc">계산기</a>
+      <a href="index.html#guide">마진 가이드</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+  <span class="label">GUIDE 06</span>
+  <h1>환율과 정산 — 달러 매출을 원화로 지키기</h1>
+  <article>
+<p>아마존 매출은 달러로 들어오고, 원가는 대부분 원화(또는 위안화)로 나갑니다. 이 구조에서는 <strong>환율 자체가 마진의 변수</strong>가 됩니다. 계산기에서 마진율 15%가 나왔어도, 환율이 5% 밀리면 실제 손익은 완전히 달라집니다.</p>
+
+<h2>정산 구조: 돈이 오는 데 걸리는 시간</h2>
+<p>아마존은 보통 <strong>2주 단위</strong>로 정산하고, 신규 계정은 자금 보류(리저브)로 실제 입금까지 더 걸릴 수 있습니다. 즉 오늘 판 물건의 달러가 원화가 되는 시점은 몇 주 뒤이고, 그 사이 환율 변동 리스크를 셀러가 집니다.</p>
+
+<h2>환전 비용: 보이지 않는 수수료</h2>
+<ul>
+<li><strong>아마존 기본 환전(ACCS)</strong> — 편하지만 환율 스프레드가 상대적으로 큼</li>
+<li><strong>해외 수취 서비스(페이오니아, 와이즈 등)</strong> — 가상 미국 계좌로 받고 원하는 시점에 환전. 수수료율이 보통 더 낮음</li>
+<li><strong>달러 보유</strong> — 다음 사입·광고비를 달러로 쓸 예정이면 환전하지 않고 달러로 두는 것도 방법</li>
+</ul>
+<p>환전 수수료 1%는 작아 보이지만, 마진율 15% 사업에서는 <strong>이익의 6~7%</strong>에 해당합니다. 수취 방식은 초기에 정해두는 게 좋습니다.</p>
+
+<h2>마진 계산에는 보수적 환율을</h2>
+<p class="formula">계산용 환율 = 최근 환율 − 3~5% (또는 최근 1년 저점 부근)</p>
+<p>사업성 검토 단계에서 현재 환율을 그대로 쓰면, 환율이 조금만 내려가도 마진 계획이 무너집니다. 보수적 환율로도 마진이 나오는 상품만 소싱하는 것이 안전합니다. 특히 원가 비중이 큰 저마진 상품일수록 환율 민감도가 높습니다. <a href="index.html#calc">마진 계산기</a>의 환율 입력값을 바꿔가며 민감도를 확인해 보세요.</p>
+
+<h2>실무 체크리스트</h2>
+<ul>
+<li>손익 관리 시트에 <strong>정산 환율</strong>(실제 입금 기준)을 따로 기록 — 계산기 환율과 실제의 갭 추적</li>
+<li>광고비는 달러 지출 — 달러 잔고에서 내면 환전 왕복 비용을 아낄 수 있음</li>
+<li>환율 급등기에 몰아서 환전하는 유혹 주의 — 본업은 환투자가 아니라 판매</li>
+</ul>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 세금 신고는 어떤 환율 기준인가요?</strong><br>수출 매출 신고는 통상 공급 시기의 기준환율을 적용합니다. 부가세 영세율 신고와 관련되므로 세무 대리인과 기준을 맞춰두세요.</p>
+<p><strong>Q. 위안화 사입이면 이중 환전인가요?</strong><br>원→위안(사입), 달러→원(정산)의 두 번 환전이 발생합니다. 양쪽 모두 수수료를 반영해 원가를 잡아야 합니다.</p>
+  </article>
+  <div class="cta">
+    <h3>내 상품 마진은 얼마일까?</h3>
+    <p>수수료·광고·반품까지 반영한 개당 순이익을 30초 만에 계산해 보세요.</p>
+    <a href="index.html#calc">마진 계산기 열기 →</a>
+  </div>
+  <div class="other">
+    <h3>다른 가이드</h3>
+    <a href="guide01-fees-structure.html">GUIDE 01 — 아마존 수수료 구조 한눈에 보기</a>
+    <a href="guide02-fba-fee-tiers.html">GUIDE 02 — FBA 수수료, 사이즈 티어가 마진을 결정한다</a>
+    <a href="guide03-acos-tacos.html">GUIDE 03 — ACoS vs TACoS — 광고 지표 제대로 읽기</a>
+    <a href="guide04-breakeven-acos.html">GUIDE 04 — 손익분기 ACoS — 광고비 한도 정하는 법</a>
+    <a href="guide05-returns-cost.html">GUIDE 05 — 반품이 마진을 갉아먹는 구조</a>
+    <a href="guide07-customs-import.html">GUIDE 07 — 상륙원가(Landed Cost) 계산하기</a>
+    <a href="guide08-fba-vs-fbm.html">GUIDE 08 — FBA vs FBM — 뭐가 유리한가</a>
+    <a href="guide09-storage-fees.html">GUIDE 09 — 보관료와 장기보관 수수료 — 재고 회전율</a>
+    <a href="guide10-margin-improve.html">GUIDE 10 — 가격 인상 vs 원가 절감 — 마진 개선 우선순위</a>
+  </div>
+  <div class="disclaimer">⚠️ 본 글은 일반적인 정보를 다루며, 아마존 수수료율과 정책은 카테고리·시기에 따라 달라질 수 있습니다. 실제 의사결정 전에는 셀러센트럴의 최신 요율표와 정책을 반드시 확인하세요.</div>
+</div>
+<footer><div class="wrap">마진랩 © 2026 · 본 사이트의 모든 내용은 참고용이며 법적 효력이 없습니다</div></footer>
+</body>
+</html>
