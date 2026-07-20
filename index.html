@@ -137,6 +137,13 @@
 
   footer { border-top: 2px solid var(--ink); padding: 28px 0; margin-top: 48px; font-size: 13px; color: var(--mid); }
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5GXQXQES4V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5GXQXQES4V');
+</script>
 </head>
 <body>
 
@@ -453,6 +460,21 @@ function calculate() {
 
   const now = computeMargin(opt);
   const units = numVal('units');
+
+  if (typeof gtag === 'function') {
+    const marginPct = opt.price ? (now.profit / opt.price) * 100 : 0;
+    gtag('event', 'calc_complete', {
+      margin_band: now.profit < 0 ? 'loss'
+        : marginPct < 10 ? 'under_10pct'
+        : marginPct < 25 ? '10_25pct' : 'over_25pct',
+      price_band: opt.price < 15 ? 'under_15usd'
+        : opt.price < 40 ? '15_40usd' : 'over_40usd',
+      tacos_band: opt.tacos <= 0 ? 'none'
+        : opt.tacos < 0.1 ? 'under_10pct'
+        : opt.tacos < 0.2 ? '10_20pct' : 'over_20pct',
+      has_units: units > 0 ? 'yes' : 'no'
+    });
+  }
 
   // 결과 표시
   document.getElementById('result').style.display = 'block';
